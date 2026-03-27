@@ -1,0 +1,28 @@
+{
+  "name": "web-accessibility-plugin",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "check": "tsc --noEmit"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Hypn0ticXD/web-accessibility-plugin.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Hypn0ticXD/web-accessibility-plugin/issues"
+  },
+  "homepage": "https://github.com/Hypn0ticXD/web-accessibility-plugin#readme",
+  "devDependencies": {
+    "@crxjs/vite-plugin": "^2.4.0",
+    "@types/chrome": "^0.1.38",
+    "@types/node": "^25.5.0",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3"
+  }
+}
