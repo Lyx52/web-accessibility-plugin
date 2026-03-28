@@ -1,12 +1,12 @@
 {
   "name": "web-accessibility-plugin",
   "version": "1.0.0",
+  "type": "module",
   "description": "",
   "main": "index.js",
   "scripts": {
     "dev": "vite",
-    "build": "tsc && vite build",
-    "check": "tsc --noEmit"
+    "build": "vue-tsc --noEmit && vite build"
   },
   "repository": {
     "type": "git",
@@ -20,9 +20,19 @@
   "homepage": "https://github.com/Hypn0ticXD/web-accessibility-plugin#readme",
   "devDependencies": {
     "@crxjs/vite-plugin": "^2.4.0",
+    "@tailwindcss/postcss": "^4.2.2",
     "@types/chrome": "^0.1.38",
     "@types/node": "^25.5.0",
+    "@vitejs/plugin-vue": "^6.0.5",
+    "autoprefixer": "^10.4.27",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
     "typescript": "^6.0.2",
-    "vite": "^8.0.3"
+    "vite": "^8.0.3",
+    "vue-tsc": "^3.2.6"
+  },
+  "dependencies": {
+    "pinia": "^3.0.4",
+    "vue": "^3.5.31"
   }
 }

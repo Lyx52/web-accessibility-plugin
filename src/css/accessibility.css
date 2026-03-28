@@ -1,0 +1,23 @@
+@import url('https://fonts.cdnfonts.com/css/open-dyslexic');
+
+html {
+    --accessibility-font-scale: 100;
+}
+
+/** FONT DYSLEXIC .accessibility-font-dyslexic */
+html.accessibility-font-dyslexic {
+    --font-sans: 'Open-Dyslexic', sans-serif !important;
+}
+
+html.accessibility-font-dyslexic, html.accessibility-font-dyslexic * {
+    font-family: 'Open-Dyslexic', sans-serif !important;
+}
+
+/** FONT BOLDED .accessibility-font-bolded */
+html.accessibility-font-bolded, html.accessibility-font-bolded * {
+    font-weight: bold !important;
+}
+
+html.accessibility-font-scale, html.accessibility-font-scale * {
+    font-size: calc(16px * calc(var(--accessibility-font-scale) / 100));
+}

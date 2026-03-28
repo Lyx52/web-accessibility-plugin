@@ -1,4 +1,7 @@
-const body = document.body;
-if (body) {
-    body.style.backgroundColor = 'lightblue';
-}
+import './css/accessibility.css';
+import {useAccessibilityPageHandler} from "./browser/accessibilityPageHandler.ts";
+const pageHandler = useAccessibilityPageHandler();
+
+(async () => {
+    await pageHandler.initialize();
+})()
