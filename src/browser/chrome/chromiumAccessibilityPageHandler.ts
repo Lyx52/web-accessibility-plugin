@@ -4,8 +4,8 @@ import {MessageType} from "../MessageType.ts";
 import {getBrowserType} from "../../utilities/browserType.ts";
 
 export class ChromiumAccessibilityPageHandler implements IAccessibilityPageHandler {
-    initialize(): Promise<void> {
-        chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    initialize() {
+        chrome.runtime.onMessage.addListener((message) => {
             switch (message.type) {
                 case MessageType.ACCESSIBILITY_SETTINGS_UPDATE: updateDocumentClasses(message.data);
             }

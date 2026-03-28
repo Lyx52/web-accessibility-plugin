@@ -1,5 +1,6 @@
 import {defineStore} from "pinia";
 import {useAccessibilityHandler} from "../../browser/accessibilityHandler.ts";
+import {TextToSpeechFeature} from "./features/TextToSpeechFeature.ts";
 
 export const updateDocumentClasses = (state: IAccessibilityStoreState, maxFontSize: number = 300) => {
     const root = document.documentElement;
@@ -33,6 +34,12 @@ export const updateDocumentClasses = (state: IAccessibilityStoreState, maxFontSi
         root.classList.remove("accessibility-big-cursor");
     }
 
+    if (state.speech) {
+        TextToSpeechFeature.getInstance().enable()
+    } else {
+        TextToSpeechFeature.getInstance().disable()
+    }
+
     if (state.fontScale != 100) {
         const root = document.documentElement;
         if (!root.hasAttribute("data-accessibility-processed")) {
@@ -42,7 +49,7 @@ export const updateDocumentClasses = (state: IAccessibilityStoreState, maxFontSi
 
         root.style.fontSize = `${Math.min(maxFontSize, state.fontScale)}%`;
     } else {
-        root.style.fontSize = root.getAttribute("data-accessibility-original-font");
+        root.style.fontSize = root.getAttribute("data-accessibility-original-font") ?? '';
     }
 }
 
@@ -55,18 +62,19 @@ export const preprocessElementFonts = () => {
     const baseFontSizePx = parseFloat(window.getComputedStyle(root).fontSize);
     const allElements = document.querySelectorAll('body *');
 
-    allElements.forEach(el => {
+    allElements.forEach((el) => {
+        const elem: HTMLElement = el as HTMLElement;
         // Skip tags that shouldn't have text scaling applied
-        if (['SCRIPT', 'STYLE', 'SVG', 'PATH', 'IMG', 'CANVAS'].includes(el.tagName)) return;
+        if (['SCRIPT', 'STYLE', 'SVG', 'PATH', 'IMG', 'CANVAS'].includes(elem.tagName)) return;
 
-        const computedPx = parseFloat(window.getComputedStyle(el).fontSize);
+        const computedPx = parseFloat(window.getComputedStyle(elem).fontSize);
         if (!isNaN(computedPx)) {
             const remValue = computedPx / baseFontSizePx;
-            el.style.fontSize = `${remValue}rem !important`;
+            elem.style.fontSize = `${remValue}rem !important`;
         }
     });
 
-    root.setAttribute("data-accessibility-processed", true)
+    root.setAttribute("data-accessibility-processed", 'true')
 }
 
 export const useAccessibilityStore = defineStore('accessibilityStore', {
@@ -77,7 +85,8 @@ export const useAccessibilityStore = defineStore('accessibilityStore', {
         lineHeight: false,
         letterSpacing: false,
         bigCursor: false,
-        storeLoaded: false
+        storeLoaded: false,
+        speech: false,
     }),
     actions: {
         async loadAccessibilityState() {
@@ -94,6 +103,7 @@ export const useAccessibilityStore = defineStore('accessibilityStore', {
             this.lineHeight = settings?.lineHeight ?? false;
             this.letterSpacing = settings?.letterSpacing ?? false;
             this.bigCursor = settings?.bigCursor ?? false;
+            this.speech = settings?.speech ?? false;
 
             this.storeLoaded = true;
         },
@@ -104,6 +114,7 @@ export const useAccessibilityStore = defineStore('accessibilityStore', {
             this.lineHeight = false;
             this.letterSpacing = false;
             this.bigCursor = false;
+            this.speech = false;
         },
     }
 })

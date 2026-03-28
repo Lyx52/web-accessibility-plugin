@@ -10,14 +10,14 @@ import {useAccessibilityHandler} from "../browser/accessibilityHandler.ts";
 import IconLineHeight from "./components/icons/IconLineHeight.vue";
 import IconLetterSpacing from "./components/icons/IconLetterSpacing.vue";
 import IconBigCursor from "./components/icons/IconBigCursor.vue";
+import IconSpeech from "./components/icons/IconSpeech.vue";
 
 const accessibilityStore = useAccessibilityStore();
 const accessibilityHandler = useAccessibilityHandler();
 
-accessibilityStore.$subscribe(async (mutation, state) => {
+accessibilityStore.$subscribe(async (_, state) => {
   updateDocumentClasses(state, 150);
 
-  console.log(accessibilityHandler);
   await accessibilityHandler.persist(state);
   await accessibilityHandler.updateAccessibilityOnPage(state);
 });
@@ -68,6 +68,13 @@ onMounted(async () => {
             :click="() => accessibilityStore.bigCursor = !accessibilityStore.bigCursor"
             :active="accessibilityStore.bigCursor"
             :icon="IconBigCursor"
+        />
+
+        <AccessibilityCard
+            label="Balss lasītājs"
+            :click="() => accessibilityStore.speech = !accessibilityStore.speech"
+            :active="accessibilityStore.speech"
+            :icon="IconSpeech"
         />
 
       </div>

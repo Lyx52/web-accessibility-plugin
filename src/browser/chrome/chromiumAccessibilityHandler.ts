@@ -5,7 +5,11 @@ export class ChromiumAccessibilityHandler implements IAccessibilityHandler {
     public ACCESSIBILITY_SETTINGS: string = 'accessibilitySettings';
     public async sendMessage(messageType: MessageType, data: any) {
         const [activeTab] = await chrome.tabs.query({ active: true, currentWindow: true });
-        await chrome.tabs.sendMessage(activeTab.id, {
+        if (!activeTab?.id) {
+            return;
+        }
+
+        await chrome.tabs.sendMessage(activeTab!.id, {
             type: messageType,
             data: data,
         });
@@ -21,10 +25,10 @@ export class ChromiumAccessibilityHandler implements IAccessibilityHandler {
 
     }
 
-    public async getPersistedState(): Promise<?IAccessibilityStoreState> {
+    public async getPersistedState(): Promise<IAccessibilityStoreState|null> {
         const result = await chrome.storage.local.get(this.ACCESSIBILITY_SETTINGS);
         try {
-            return JSON.parse(result[this.ACCESSIBILITY_SETTINGS])
+            return JSON.parse(result[this.ACCESSIBILITY_SETTINGS] as string)
         } catch {
             return null;
         }

@@ -5,6 +5,7 @@ interface IAccessibilityStoreState {
     lineHeight: boolean;
     letterSpacing: boolean;
     bigCursor: boolean;
+    speech: boolean;
 
     storeLoaded: boolean;
 }

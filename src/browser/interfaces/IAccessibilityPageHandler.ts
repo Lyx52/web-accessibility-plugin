@@ -1,4 +1,4 @@
 export interface IAccessibilityPageHandler {
-    initialize(): Promise<void>;
+    initialize(): void;
     loadInitialSettings(): void;
 }

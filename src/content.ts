@@ -4,4 +4,4 @@ const pageHandler = useAccessibilityPageHandler();
 
 (async () => {
     await pageHandler.initialize();
-})()
+})();
