@@ -2,6 +2,9 @@ interface IAccessibilityStoreState {
     fontScale: number;
     fontBolded: boolean;
     fontDyslexic: boolean;
+    lineHeight: boolean;
+    letterSpacing: boolean;
+    bigCursor: boolean;
 
     storeLoaded: boolean;
 }

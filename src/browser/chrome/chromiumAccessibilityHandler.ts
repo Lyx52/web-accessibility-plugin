@@ -16,11 +16,17 @@ export class ChromiumAccessibilityHandler implements IAccessibilityHandler {
     }
 
     public async persist(state: IAccessibilityStoreState): Promise<void> {
-        await chrome.storage.local.set({ [this.ACCESSIBILITY_SETTINGS]: state });
+        const value = JSON.stringify(state);
+        await chrome.storage.local.set({ [this.ACCESSIBILITY_SETTINGS]: value });
+
     }
 
     public async getPersistedState(): Promise<?IAccessibilityStoreState> {
-        const data = await chrome.storage.local.get(this.ACCESSIBILITY_SETTINGS);
-        return data[this.ACCESSIBILITY_SETTINGS];
+        const result = await chrome.storage.local.get(this.ACCESSIBILITY_SETTINGS);
+        try {
+            return JSON.parse(result[this.ACCESSIBILITY_SETTINGS])
+        } catch {
+            return null;
+        }
     }
 }

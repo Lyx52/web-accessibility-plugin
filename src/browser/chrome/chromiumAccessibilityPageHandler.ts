@@ -13,6 +13,8 @@ export class ChromiumAccessibilityPageHandler implements IAccessibilityPageHandl
             return true;
         });
         this.loadInitialSettings();
+
+        console.log("AccessibilityPageHandler initialized");
     }
     loadInitialSettings(): void {
         chrome.runtime.sendMessage({ type: MessageType.GET_ACCESSIBILITY_SETTINGS, browserType: getBrowserType() }, (response) => {

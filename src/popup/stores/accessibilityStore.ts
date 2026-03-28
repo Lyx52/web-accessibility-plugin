@@ -1,9 +1,7 @@
 import {defineStore} from "pinia";
-import {UnwrapRef} from "vue";
-import {S} from "tailwindcss/dist/types-CJYAW1ql";
 import {useAccessibilityHandler} from "../../browser/accessibilityHandler.ts";
 
-export const updateDocumentClasses = (state: IAccessibilityStoreState) => {
+export const updateDocumentClasses = (state: IAccessibilityStoreState, maxFontSize: number = 300) => {
     const root = document.documentElement;
     if (state.fontDyslexic) {
         root.classList.add("accessibility-font-dyslexic");
@@ -17,6 +15,24 @@ export const updateDocumentClasses = (state: IAccessibilityStoreState) => {
         root.classList.remove("accessibility-font-bolded");
     }
 
+    if (state.lineHeight) {
+        root.classList.add("accessibility-line-height");
+    } else {
+        root.classList.remove("accessibility-line-height");
+    }
+
+    if (state.letterSpacing) {
+        root.classList.add("accessibility-letter-spacing");
+    } else {
+        root.classList.remove("accessibility-letter-spacing");
+    }
+
+    if (state.bigCursor) {
+        root.classList.add("accessibility-big-cursor");
+    } else {
+        root.classList.remove("accessibility-big-cursor");
+    }
+
     if (state.fontScale != 100) {
         const root = document.documentElement;
         if (!root.hasAttribute("data-accessibility-processed")) {
@@ -24,7 +40,7 @@ export const updateDocumentClasses = (state: IAccessibilityStoreState) => {
             preprocessElementFonts();
         }
 
-        root.style.fontSize = `${state.fontScale}%`;
+        root.style.fontSize = `${Math.min(maxFontSize, state.fontScale)}%`;
     } else {
         root.style.fontSize = root.getAttribute("data-accessibility-original-font");
     }
@@ -58,9 +74,12 @@ export const useAccessibilityStore = defineStore('accessibilityStore', {
         fontScale: 100,
         fontBolded: false,
         fontDyslexic: false,
+        lineHeight: false,
+        letterSpacing: false,
+        bigCursor: false,
         storeLoaded: false
     }),
-    getters: {
+    actions: {
         async loadAccessibilityState() {
             if (this.storeLoaded) {
                 return;
@@ -68,19 +87,23 @@ export const useAccessibilityStore = defineStore('accessibilityStore', {
 
             const accessibilityHandler = useAccessibilityHandler();
             const settings = await accessibilityHandler.getPersistedState();
-            console.log(settings);
-            this.fontScale = settings.fontScale ?? 100;
-            this.fontBolded = settings.fontBolded ?? false;
-            this.fontDyslexic = settings.fontDyslexic ?? false;
+
+            this.fontScale = settings?.fontScale ?? 100;
+            this.fontBolded = settings?.fontBolded ?? false;
+            this.fontDyslexic = settings?.fontDyslexic ?? false;
+            this.lineHeight = settings?.lineHeight ?? false;
+            this.letterSpacing = settings?.letterSpacing ?? false;
+            this.bigCursor = settings?.bigCursor ?? false;
 
             this.storeLoaded = true;
-        }
-    },
-    actions: {
+        },
         reset() {
             this.fontScale = 100;
             this.fontBolded = false;
             this.fontDyslexic = false;
+            this.lineHeight = false;
+            this.letterSpacing = false;
+            this.bigCursor = false;
         },
     }
 })
