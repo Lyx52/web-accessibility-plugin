@@ -1,0 +1,2 @@
+import{n as e,t}from"./accessibilityHandler-DYIHJR2X.js";chrome.runtime.onMessage.addListener(async(n,r,i)=>{let a=n.browserType,o=t(a);switch(n.type){case e.GET_ACCESSIBILITY_SETTINGS:i(await o.getPersistedState());break}return!0});
+//# sourceMappingURL=background.ts-fGWw8EmJ.js.map

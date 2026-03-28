@@ -1,0 +1,48 @@
+{
+  "manifest_version": 3,
+  "name": "Web Accessibility Extension",
+  "version": "1.0",
+  "description": "A simple web accessibility extension",
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "scripting",
+    "storage"
+  ],
+  "action": {
+    "default_popup": "index.html"
+  },
+  "background": {
+    "service_worker": "service-worker-loader.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "js": [
+        "assets/content.ts-loader-DCfOpp5C.js"
+      ],
+      "matches": [
+        "<all_urls>"
+      ],
+      "css": [
+        "assets/accessibilityStore-BnOtpRDE.css"
+      ]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "matches": [
+        "<all_urls>"
+      ],
+      "resources": [
+        "assets/accessibilityStore-DxGEAw7j.js",
+        "assets/accessibilityStore-DxGEAw7j.js.map",
+        "assets/accessibilityHandler-DYIHJR2X.js",
+        "assets/accessibilityHandler-DYIHJR2X.js.map",
+        "assets/content.ts-Je8_Yh1L.js",
+        "assets/content.ts-Je8_Yh1L.js.map"
+      ],
+      "use_dynamic_url": false
+    }
+  ]
+}
