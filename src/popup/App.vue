@@ -11,6 +11,9 @@ import IconLineHeight from "./components/icons/IconLineHeight.vue";
 import IconLetterSpacing from "./components/icons/IconLetterSpacing.vue";
 import IconBigCursor from "./components/icons/IconBigCursor.vue";
 import IconSpeech from "./components/icons/IconSpeech.vue";
+import IconLowSaturation from "./components/icons/IconLowSaturation.vue";
+import IconHighContrast from "./components/icons/IconHighContrast.vue";
+import IconSoftContrast from "./components/icons/IconSoftContrast.vue";
 
 const accessibilityStore = useAccessibilityStore();
 const accessibilityHandler = useAccessibilityHandler();
@@ -29,7 +32,7 @@ onMounted(async () => {
 </script>
 
 <template>
-  <div class="min-w-120 min-h-[600px] bg-[#EBE9E2] text-[#2C2145] font-sans shadow-lg overflow-hidden flex flex-col">
+  <div class="min-w-120 min-h-[600px] bg-[#363737] text-[#2C2145] font-sans shadow-lg overflow-hidden flex flex-col">
     <PopupHeader />
 
     <main class="flex-grow p-4 space-y-4 overflow-y-auto">
@@ -75,6 +78,34 @@ onMounted(async () => {
             :click="() => accessibilityStore.speech = !accessibilityStore.speech"
             :active="accessibilityStore.speech"
             :icon="IconSpeech"
+        />
+
+        <AccessibilityCard
+            label="Zems piesātinājums"
+            :click="() => accessibilityStore.lowSaturation = !accessibilityStore.lowSaturation"
+            :active="accessibilityStore.lowSaturation"
+            :icon="IconLowSaturation"
+        />
+
+        <AccessibilityCard
+            label="Augsts kontrasts"
+            :click="() => accessibilityStore.highContrast = !accessibilityStore.highContrast"
+            :active="accessibilityStore.highContrast"
+            :icon="IconHighContrast"
+        />
+
+        <AccessibilityCard
+            label="Gaišs kontrasts"
+            :click="() => accessibilityStore.softContrast = !accessibilityStore.softContrast"
+            :active="accessibilityStore.softContrast"
+            :icon="IconSoftContrast"
+        />
+
+        <AccessibilityCard
+            label="Tumšs kontrasts"
+            :click="() => accessibilityStore.darkContrast = !accessibilityStore.darkContrast"
+            :active="accessibilityStore.darkContrast"
+            :icon="IconSoftContrast"
         />
 
       </div>

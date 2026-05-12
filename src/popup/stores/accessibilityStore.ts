@@ -34,6 +34,30 @@ export const updateDocumentClasses = (state: IAccessibilityStoreState, maxFontSi
         root.classList.remove("accessibility-big-cursor");
     }
 
+    if (state.lowSaturation) {
+        root.classList.add("low-saturation-filter");
+    } else {
+        root.classList.remove("low-saturation-filter");
+    }
+
+    if (state.highContrast) {
+        root.classList.add("accessibility-high-contrast-filter");
+    } else {
+        root.classList.remove("accessibility-high-contrast-filter");
+    }
+
+    if (state.softContrast) {
+        root.classList.add("accessibility-soft-contrast-filter");
+    } else {
+        root.classList.remove("accessibility-soft-contrast-filter");
+    }
+
+    if (state.darkContrast) {
+        root.classList.add("accessibility-dark-contrast-filter");
+    } else {
+        root.classList.remove("accessibility-dark-contrast-filter");
+    }
+
     if (state.speech) {
         TextToSpeechFeature.getInstance().enable()
     } else {
@@ -87,6 +111,10 @@ export const useAccessibilityStore = defineStore('accessibilityStore', {
         bigCursor: false,
         storeLoaded: false,
         speech: false,
+        lowSaturation: false,
+        highContrast: false,
+        softContrast: false,
+        darkContrast: false,
     }),
     actions: {
         async loadAccessibilityState() {
@@ -104,6 +132,10 @@ export const useAccessibilityStore = defineStore('accessibilityStore', {
             this.letterSpacing = settings?.letterSpacing ?? false;
             this.bigCursor = settings?.bigCursor ?? false;
             this.speech = settings?.speech ?? false;
+            this.lowSaturation = settings?.lowSaturation ?? false;
+            this.highContrast = settings?.highContrast ?? false;
+            this.softContrast = settings?.softContrast ?? false;
+            this.darkContrast = settings?.darkContrast ?? false;
 
             this.storeLoaded = true;
         },
@@ -115,6 +147,10 @@ export const useAccessibilityStore = defineStore('accessibilityStore', {
             this.letterSpacing = false;
             this.bigCursor = false;
             this.speech = false;
+            this.lowSaturation = false;
+            this.highContrast = false;
+            this.softContrast = false;
+            this.darkContrast = false;
         },
     }
 })
